@@ -13,3 +13,10 @@ GPIO_PORTF_AFSEL_R = 0X00;	//disabels alternate functions on port F
 GPIO_PORTF_DEN_R = 0X0E;		//enables digital data on all pins
 GPIO_PORTF_DATA_R &= ~0x0E; //intialiazes all data to 0 on the pins
 }
+void led_on(unsigned char led){
+GPIO_PORTF_DATA_R |= led;
+	}
+
+void led_off(unsigned char led){
+GPIO_PORTF_DATA_R &= ~ led;
+}

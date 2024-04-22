@@ -1,7 +1,7 @@
 #include "GPIO.h"
 
 // intializes port F
-void GPIO_initPORTF() {	
+void GPIO_initPORTF(void) {	
     SYSCTL_RCGCGPIO_R |= 0X20;	            // activates clock for port F
     while ((SYSCTL_PRGPIO_R & 0X20) == 0);	// waits for clock to stabalize
 

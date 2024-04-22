@@ -9,5 +9,4 @@
 
 void led_off(unsigned char led);
 void led_on(unsigned char led);
-void GPIO_initPORTF();
-
+void GPIO_initPORTF(void);

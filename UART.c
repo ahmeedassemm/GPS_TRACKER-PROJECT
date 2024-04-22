@@ -26,6 +26,3 @@ char Uart7_receive(void) {
 
 	return (char)(UART7_DR_R & 0xFF);
 }
-
-
-

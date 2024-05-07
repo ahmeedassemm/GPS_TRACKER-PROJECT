@@ -20,3 +20,10 @@ void SysTick_Wait1s(uint32_t delay) {
         SysTick_Wait(80000000); // Assuming 80MHz clock
     }
 }
+
+void SysTick_Wait1ms(uint32_t delay) {
+    uint32_t i;
+    for (i = 0; i < delay; i++) {
+        SysTick_Wait(80000); // Assuming 80MHz clock
+    }
+}

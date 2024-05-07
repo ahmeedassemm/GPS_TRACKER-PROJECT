@@ -2,7 +2,7 @@
 
 
 // intializes Uart7 
-void UART7_INIT() {
+void UART7_INIT(void) {
 	SYSCTL_RCGCUART_R |= 0x80; 		// turns on clock for uart 7
 	SYSCTL_RCGCGPIO_R |= 0x10; 		// turns on clock for port E
  

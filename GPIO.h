@@ -1,3 +1,6 @@
+#ifndef GPIO_H
+#define GPIO_H
+
 #include "Bit_Utilities.h"
 #include "tm4c123gh6pm.h"
 
@@ -10,3 +13,5 @@
 void led_off(unsigned char led);
 void led_on(unsigned char led);
 void GPIO_initPORTF(void);
+
+#endif

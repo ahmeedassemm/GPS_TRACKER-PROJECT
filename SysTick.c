@@ -1,4 +1,5 @@
 #include <stdint.h>
+
 #include "tm4c123gh6pm.h"
 
 void SysTick_Init(void) {
@@ -17,13 +18,20 @@ void SysTick_Wait(uint32_t delay) {
 void SysTick_Wait1s(uint32_t delay) {
     uint32_t i;
     for (i = 0; i < delay; i++) {
-        SysTick_Wait(80000000); // Assuming 80MHz clock
+        SysTick_Wait(16e6); // Assuming 16MHz clock
     }
 }
 
 void SysTick_Wait1ms(uint32_t delay) {
     uint32_t i;
     for (i = 0; i < delay; i++) {
-        SysTick_Wait(80000); // Assuming 80MHz clock
+        SysTick_Wait(16e3); // Assuming 16MHz clock
+    }
+}
+
+void SysTick_Wait1us(uint32_t delay) {
+    uint32_t i;
+    for (i = 0; i < delay; i++) {
+        SysTick_Wait(16); // Assuming 16MHz clock
     }
 }

@@ -28,6 +28,7 @@ double distance(double lat1, double lon1, double lat2, double lon2) {
     return RADIUS * c;
 }
 
+
 int approximate(double a, float d) {
     return (int)(a / d + 0.5) * d;
 }

@@ -18,11 +18,6 @@ void UART0_Init(void) {
 	GPIO_PORTA_AMSEL_R &= ~0x03;
 }
 
-char UART0_InChar(void) {
-	while ((UART0_FR_R & 0x10) != 0);
-	return UART0_DR_R & 0xFF;
-}
-
 void UART0_OutChar(char c) {
 	while ((UART0_FR_R & 0x20) != 0);
 	UART0_DR_R = c;
@@ -63,9 +58,4 @@ char UART2_InChar(void) {
 	while ((UART2_FR_R & 0x10) != 0);
 	c = UART2_DR_R;
 	return c;
-}
-
-void UART2_OutChar(char c) {
-	while ((UART2_FR_R & 0x20) != 0);
-	UART2_DR_R = c;
 }

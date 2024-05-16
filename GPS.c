@@ -14,20 +14,19 @@ float currentLong;
 
 // extract $GPRMC message content
 void GPS_read(void) {
-    char i = 0;
-    char counter = 0;
+    unsigned char i = 0;
 
     // wait till $GPRMC message
-    do {
+    for (i = 0; i < 6; i++) {
         while (UART2_InChar() != GPS_logname[i]) {
             i = 0;
         }
-        i++;
-    } while (i != 6);
+    }
 
     // extract GPRMC message content
-    while (GPS[counter - 1] != '*') {
-        GPS[counter++] = UART2_InChar();
+    i = 0;
+    while (i == 0 || GPS[i - 1] != '*') {
+        GPS[i++] = UART2_InChar();
     }
 }
 
@@ -44,12 +43,13 @@ void GPS_format(void) {
     if (strcmp(GPS_formated[1], "A") == 0) {
 
         currentLat = atof(GPS_formated[2]);
-        if (strcmp(GPS_formated[3], "N"))
+        if (strcmp(GPS_formated[3], "N")) {
             currentLat = -currentLat;
+        }
 
         currentLong = atof(GPS_formated[4]);
-        if (strcmp(GPS_formated[5], "E"))
+        if (strcmp(GPS_formated[5], "E")) {
             currentLong = -currentLong;
-
+        }
     }
 }

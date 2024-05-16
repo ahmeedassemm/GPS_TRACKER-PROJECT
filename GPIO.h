@@ -15,7 +15,5 @@
 void PortF_Init(void);
 char PortF_Input(void);
 void PortF_Output(char data);
-void led_off(unsigned char led);
-void led_on(unsigned char led);
 
 #endif

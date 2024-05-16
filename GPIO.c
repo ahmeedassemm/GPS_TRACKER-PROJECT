@@ -19,11 +19,3 @@ char PortF_Input(void) {
 void PortF_Output(char data) { // write PF3-PF1 outputs
     GPIO_PORTF_DATA_R = data;
 }
-
-void led_on(unsigned char led) {
-    GPIO_PORTF_DATA_R |= led;
-}
-
-void led_off(unsigned char led) {
-    GPIO_PORTF_DATA_R &= ~led;
-}

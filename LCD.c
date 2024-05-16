@@ -81,18 +81,3 @@ void LCD_Clear() {
 	LCD_sendCommand(0x80); /* LCD cursor location */
 	SysTick_Wait1ms(500);
 }
-
-// Used to convert float numbers to string and diplay on the lcd 		
-void LCD_displayfloat(float data) {
-	char str[7];
-	int i = 0;
-	sprintf(str, "%f", data);//used to convert flaot to string
-	LCD_sendCommand(1); /* clear display */
-	LCD_sendCommand(0x80); /* LCD cursor location */
-
-	while (str[i] != '\0') {
-		LCD_displayCharacter(str[i]);
-		i++;
-	}
-	SysTick_Wait1ms(500);//delay 500ms
-}

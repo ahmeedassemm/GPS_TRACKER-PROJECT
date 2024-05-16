@@ -46,7 +46,7 @@ void UART2_Init(void) {
 
 	UART2_CC_R = 0;        // use system clock
 	UART2_LCRH_R = 0x60;   // 8-bit word length, no Fifo , no parity, 1 stop bit
-	UART2_CTL_R = 0X0301;  // enable RXE,TXE AND UART
+	UART2_CTL_R = 0X0301;  // enable RXE,TXE & UART
 
 	GPIO_PORTD_DEN_R |= 0XC0;     // enable digital IO on PD6,PD7
 	GPIO_PORTD_AMSEL_R &= ~0XC0;  // disable analog function on PD6, PD7

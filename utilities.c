@@ -27,19 +27,3 @@ double distance(double lat1, double lon1, double lat2, double lon2) {
     double c = 2 * atan2(sqrt(a), sqrt(1 - a));
     return RADIUS * c;
 }
-
-
-int approximate(double a, float d) {
-    return (int)(a / d + 0.5) * d;
-}
-
-void UART0SendFloat(float num) {
-    int i;
-    char buffer[50];
-    snprintf(buffer, sizeof(buffer), "%f", num);
-
-    for (i = 0; buffer[i] != '\0'; i++) {
-        while ((UART0_FR_R & UART_FR_TXFF) == UART_FR_TXFF); // Wait until the transmitter is not full
-        UART0_DR_R = buffer[i]; // Transmit the character
-    }
-}

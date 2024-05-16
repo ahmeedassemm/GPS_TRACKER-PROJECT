@@ -9,15 +9,15 @@
 #include "UART.h"
 #include "utilities.h"
 
+#define THRESHOLD_DISTANCE 1
+
 extern float currentLat;
 extern float currentLong;
 
 int main() {
     // Declare variables
     double dd;
-    char distancs_str[50];
-    char latitude[50];
-    char longtitude[50];
+    char str_buffer[50];
     float previousLat = currentLat;
     float previousLong = currentLong;
     double total_distance = 0;
@@ -41,15 +41,16 @@ int main() {
         currentLat = to_degree(currentLat);
         currentLong = to_degree(currentLong);
         LCD_Clear();
-        sprintf(distancs_str, "d: %f", total_distance);
-        LCD_displayString(distancs_str);
-        sprintf(latitude, "%f,", currentLat);
-        UART0_OutString(latitude);
-        sprintf(longtitude, "%f\n", currentLong);
-        UART0_OutString(longtitude);
+        sprintf(str_buffer, "d: %f", total_distance);
+        LCD_displayString(str_buffer);
+        sprintf(str_buffer, "%f,", currentLat);
+        UART0_OutString(str_buffer);
+        sprintf(str_buffer, "%f\n", currentLong);
+        UART0_OutString(str_buffer);
         dd = distance(previousLat, previousLong, currentLat, currentLong);
-        if (!first_time && dd > 1)
+        if (!first_time && dd > THRESHOLD_DISTANCE) {
             total_distance += dd;
+        }
         previousLat = currentLat;
         previousLong = currentLong;
         SysTick_Wait1s(1);
@@ -64,6 +65,6 @@ int main() {
         LCD_displayString("SW1 pressed!");
     }
     LCD_sendCommand(0xC0);  // Go to the second line
-    sprintf(distancs_str, "d: %f", total_distance);
-    LCD_displayString(distancs_str);
+    sprintf(str_buffer, "d: %f", total_distance);
+    LCD_displayString(str_buffer);
 }

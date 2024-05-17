@@ -1,16 +1,17 @@
 #include "tm4c123gh6pm.h"
 #include "UART.h"
-
+//pc
 void UART0_Init(void) {
-	SYSCTL_RCGCUART_R |= SYSCTL_RCGCUART_R0;
-	SYSCTL_RCGCGPIO_R |= SYSCTL_RCGCGPIO_R0;
+	SYSCTL_RCGCUART_R |= SYSCTL_RCGCUART_R0;// activate UART0
+	SYSCTL_RCGCGPIO_R |= SYSCTL_RCGCGPIO_R0;//  activate port A
 
-	UART0_CTL_R &= ~UART_CTL_UARTEN;
+	UART0_CTL_R &= ~UART_CTL_UARTEN;// disable UART
 	UART0_IBRD_R = 104;
 	UART0_FBRD_R = 11;
-	UART0_LCRH_R |= (UART_LCRH_WLEN_8 | UART_LCRH_FEN);
+	UART0_LCRH_R |= (UART_LCRH_WLEN_8 | UART_LCRH_FEN); //8bit data,FIFO enabled
 	UART0_CTL_R = (UART_CTL_RXE | UART_CTL_TXE | UART_CTL_UARTEN);
-
+	
+	//PA0 = U0RX, PA1 = U0TX
 	GPIO_PORTA_AFSEL_R |= 0x03;
 	GPIO_PORTA_PCTL_R = (GPIO_PORTA_PCTL_R &= ~0xFF) |
 		(GPIO_PCTL_PA1_U0TX | GPIO_PCTL_PA0_U0RX);
@@ -19,7 +20,7 @@ void UART0_Init(void) {
 }
 
 void UART0_OutChar(char c) {
-	while ((UART0_FR_R & 0x20) != 0);
+	while ((UART0_FR_R & 0x20) != 0); //check FIFO not full
 	UART0_DR_R = c;
 }
 
@@ -32,10 +33,10 @@ void UART0_OutString(char* pt) {
 
 // for gps
 void UART2_Init(void) {
-	SYSCTL_RCGCUART_R |= 0X04;  // activate UART2
-	SYSCTL_RCGCGPIO_R |= 0X08;  //  activate port D
+	SYSCTL_RCGCUART_R |= SYSCTL_RCGCUART_R2;  // activate UART2
+	SYSCTL_RCGCGPIO_R |= SYSCTL_RCGCGPIO_R3;  //  activate port D
 
-	UART2_CTL_R &= ~(0X0001);  // disable UART
+	UART2_CTL_R &= ~UART_CTL_UARTEN;  // disable UART
 	UART2_IBRD_R = 104;
 	UART2_FBRD_R = 11;
 
